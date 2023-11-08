@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">test3</string>
+    <string name="invalid_message">Please Enter Proper value!</string>
+</resources>

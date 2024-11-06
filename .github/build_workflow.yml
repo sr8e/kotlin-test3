@@ -1,0 +1,45 @@
+name: Android CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: build_test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug
+
+      - name: Verify APK exists
+        run: ls -R app/build/outputs/apk/develop/debug/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: apk
+          path: app/build/outputs/apk/develop/debug/*.apk
+          if-no-files-found: error

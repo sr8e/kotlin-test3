@@ -34,12 +34,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleDebug
 
-      - name: Verify APK exists
-        run: ls -R app/build/outputs/apk/develop/debug/
-
       - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: apk
-          path: app/build/outputs/apk/develop/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error

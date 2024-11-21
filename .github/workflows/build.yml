@@ -48,12 +48,3 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testgroup
           file: app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Deploy to Play Store
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          packageName: net.mell0w_5phere.test3
-          releaseFiles: app/build/outputs/apk/debug/app-debug.apk
-          track: internal
-          status: draft

@@ -5,18 +5,27 @@ plugins {
 
 android {
     namespace = "net.mell0w_5phere.test3"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "net.mell0w_5phere.test3"
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = rootProject.file("keystore/keystore.jks")
+            storePassword = System.getenv("SIGNING_KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword = System.getenv("SIGNING_KEY_PASSWORD")
         }
     }
 
@@ -27,6 +36,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

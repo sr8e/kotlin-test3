@@ -57,4 +57,4 @@ jobs:
           packageName: net.mell0w_5phere.test3
           releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: internal
-          status: draft
+          status: completed
